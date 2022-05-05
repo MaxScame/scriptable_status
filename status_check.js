@@ -20,7 +20,7 @@ widget.setPadding(padding, padding, padding, padding);
 widget.url = 'https://inscience.kovalev.team/';
 
 const headerStack = widget.addStack();
-headerStack.setPadding(0, 0, 15, 0);
+headerStack.setPadding(0, 0, 25, 20);
 const headerText = headerStack.addText("InScience");
 headerText.font = Font.mediumSystemFont(16);
 if (isDarkTheme) {
@@ -54,16 +54,17 @@ function addStatus(image, name, status) {
     const symbolText = symbolStack.addText(name);
     symbolText.font = Font.mediumSystemFont(16);
 
-    const statusText = priceStack.addText(status);
-    statusText.font = Font.mediumSystemFont(16);
-
     if (isDarkTheme) {
         symbolText.textColor = new Color('#FFFFFF');
     }
 
-    if (status === 200) {
+    if (status === '200') {
+        const statusText = priceStack.addText('✅');
+        statusText.font = Font.mediumSystemFont(16);
         statusText.textColor = new Color('#4AA956');
     } else {
+        const statusText = priceStack.addText('⚠️');
+        statusText.font = Font.mediumSystemFont(16);
         statusText.textColor = new Color('#D22E2E');
     }
 }
@@ -73,7 +74,7 @@ async function getStatusInfo(projectSubUrl) {
     const req = new Request(url);
     const res = await req.loadString();
     const status = req.response.statusCode;
-    return { 'status': status };
+    return status;
 }
 
 async function loadImage(imgUrl) {
