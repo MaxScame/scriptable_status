@@ -4,6 +4,7 @@
 /*
  * Author: MaxScame
  * Github: https://github.com/MaxScame
+ * Credits: https://github.com/siandreev
  */
 const params = args.widgetParameter ? args.widgetParameter.split(",") : [];
 
@@ -16,7 +17,7 @@ if (isDarkTheme) {
 }
 widget.setPadding(padding, padding, padding, padding);
 
-widget.url = 'https://www.coingecko.com/en/coins/rubic';
+widget.url = 'https://inscience.kovalev.team/';
 
 const headerStack = widget.addStack();
 headerStack.setPadding(0, 0, 15, 0);
@@ -27,7 +28,7 @@ if (isDarkTheme) {
 }
 
 async function buildWidget() {
-    const inScienceImage = await loadImage('https://inscience.kovalev.team/img/logo.2764c254.svg');
+    const inScienceImage = await loadImage('https://inscience.kovalev.team/favicon.ico');
 
     const InScienceStatus = await getStatusInfo('inscience');
 
@@ -70,7 +71,8 @@ function addStatus(image, name, status) {
 async function getStatusInfo(projectSubUrl) {
     const url = `https://${projectSubUrl}.kovalev.team/`;
     const req = new Request(url);
-    const status = await req.response().statusCode;
+    const res = await req.loadString();
+    const status = req.response.statusCode;
     return { 'status': status };
 }
 
